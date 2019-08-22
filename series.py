@@ -37,6 +37,23 @@ def a133058(limit=1500):
     series = ', '.join(map(str, y[:20])) + ', ...'
     return x, y, desc, series
 
+def a133058(limit=1500):
+    x = []
+    y = []
+    x.append(0)
+    x.append(1)
+    y.append(1)
+    y.append(1)
+    for i in range(len(x), limit):
+        if math.gcd(i, y[-1]) == 1:
+            y.append(y[-1] + i + 1)
+        else:
+            y.append(int(y[-1] / math.gcd(y[-1], i)))
+        x.append(i)
+    desc = 'A133058 - Fly straight, dammit!'
+    series = ', '.join(map(str, y[:20])) + ', ...'
+    return x, y, desc, series
+
 
 def a181391(limit=1000000):
     x = []
@@ -57,10 +74,31 @@ def a181391(limit=1000000):
     return x, y, desc, series
 
 
+def a002487(limit=15):
+    x = []
+    y = []
+    y.append(0)
+    y.append(1)
+    for i in range(len(x), limit):
+        new_y = []
+        print(len(y))
+        for j in range(len(y) - 1):
+            new_y.append(y[j])
+            new_y.append(y[j] + y[j + 1])
+
+        new_y.append(y[-1])
+        y = new_y
+
+    for i in range(len(y)):
+        x.append(i)
+
+    desc = 'A002487 - Stern\'s sequence'
+    series = ', '.join(map(str, y[:20])) + ', ...'
+    return x, y, desc, series
+
+
 def main():
-    # f = a265326
-    f = a133058
-    # f = a181391
+    f = a002487
     utils.plot(f, 'linear')
 
 
